@@ -1,0 +1,15 @@
+{
+  "comment_content_required": "Comment content is required",
+  "feed_not_found": "Feed not found or not published",
+  "comment_not_found":"Comment not found",
+  "feed_comment_posted":"Feed comment posted successfully",
+  "no_permission_to_update":"No permission to update",
+  "comment_updated_successfully":"Comment updated successfully",
+  "feed_comment_listed":"Feed Comments listed successfully",
+  "no_permission_to_delete":"No permission to delete",
+  "comment_deleted":"Comment deleted successfully",
+  "already_liked":"Already liked",
+  "like_a_comment":"Liked a comment",
+  "cannot_unlike_comment":"Cannot unlike comment",
+  "unliked_comment":"Unliked a comment"
+}

@@ -1,0 +1,475 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AddressInput {
+  city: String
+  coordinates: CoordinatesInput
+  country: String
+  displayAddress: String!
+  postalCode: Float
+  state: String
+  street: String
+  type: LocationType
+}
+
+type AddressResponse {
+  displayAddress: String!
+  location: LocationResponse!
+}
+
+type AgoraCallTokenResponse {
+  calleeId: String
+  callerId: String
+  channelName: String
+  message: String
+  token: String
+}
+
+type AgoraChatUserTokenResponse {
+  chatUsername: String
+
+  """Token's expiration time in seconds"""
+  expirationTime: Float
+  message: String
+  userToken: String
+}
+
+type AgoraTokenResponse {
+  channelName: String
+  message: String
+  token: String
+  userAccount: String
+}
+
+input AllThumbnailInput {
+  key: String!
+  type: String
+}
+
+type BasePaginationResponse {
+  hasNextPage: Boolean!
+  total: Float!
+}
+
+type BiometricEnableResponse {
+  biometricToken: String
+  biometricTokenExpiresIn: DateTime
+  message: String
+}
+
+input BiometricLoginInput {
+  biometricToken: String!
+  deviceId: String!
+}
+
+type BiometricLoginResponse {
+  accessToken: String
+  accessTokenExpiresIn: DateTime
+  biometricToken: String
+  biometricTokenExpiresIn: DateTime
+  cometAuthToken: String
+  message: String
+  refreshToken: String
+  refreshTokenExpiresIn: DateTime
+}
+
+input ChangePasswordInput {
+  new_password: String!
+  password: String!
+}
+
+input CoordinatesInput {
+  lat: Float!
+  long: Float!
+}
+
+type CoordinatesResponse {
+  lat: Float
+  long: Float
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DeviceInfoInput {
+  deviceName: String!
+  deviceType: String!
+  pushNotificationToken: String
+  voipToken: String
+}
+
+input EmailSignupOTPInput {
+  deviceId: String!
+  email: String!
+}
+
+input ForgotPasswordInput {
+  deviceId: String!
+  email: String!
+}
+
+type ForgotPasswordResponse {
+  expiry: ForgotPasswordVerificationExpiry
+  message: String!
+}
+
+type ForgotPasswordVerificationExpiry {
+  expiresAt: DateTime!
+  expiresBy: Float!
+}
+
+input GetUploadUrlDTO {
+  contentType: String
+  key: String!
+  sizeInBytes: Float
+}
+
+type GetUploadUrlFromKeyResponse {
+  url: String!
+}
+
+input InitiateAgoraCallInput {
+  callType: String
+  calleeId: String
+}
+
+input ListUseProfilesDTO {
+  limit: Float! = 5
+  order: String = "desc"
+  orderBy: String = "_id"
+  searchText: String = ""
+  skip: Float! = 0
+}
+
+type LocationResponse {
+  city: String
+  coordinates: CoordinatesResponse
+  country: String
+  displayAddress: String
+  postalCode: Float
+  state: String
+  street: String
+  type: LocationType
+}
+
+enum LocationType {
+  Address
+  Geohash
+  Point
+}
+
+input LoginEmailPasswordInput {
+  agent: String
+  deviceId: String!
+  email: String!
+  ip: String
+  password: String!
+}
+
+enum LoginFlowType {
+  link
+  otp
+}
+
+type LoginResponse {
+  message: String
+  token: Token!
+  user: UserRespInLogin
+}
+
+type LoginWithAppleResponse {
+  message: String
+  token: Token!
+  user: UserRespInAppleLogin
+}
+
+type LoginWithEmailResponse {
+  expiry: VerificationCodeExpiry
+  message: String
+  token: Token
+  user: UserRespInEmailLogin
+}
+
+type LoginWithFacebookResponse {
+  message: String
+  token: Token!
+  user: UserRespInFacebookLogin
+}
+
+type LoginWithGoogleResponse {
+  message: String
+  token: Token!
+  user: UserRespInGoogleLogin
+}
+
+input LoginWithOTPInput {
+  email: String!
+  verificationCode: String!
+}
+
+type MessageResponse {
+  message: String
+}
+
+type Mutation {
+  LoginWithTiktok(code: String!, deviceId: String!): SocialLoginResponse!
+  acceptTermsAndConditions: MessageResponse!
+  changePassword(body: ChangePasswordInput!): MessageResponse!
+  createAgoraChatUserToken: AgoraChatUserTokenResponse
+  deleteAccount: MessageResponse!
+  enableBiometricAuth(deviceId: String!): BiometricEnableResponse!
+  forgotPassword(body: ForgotPasswordInput!): ForgotPasswordResponse!
+  getAgoraToken: AgoraTokenResponse!
+  getPublicUploadUrl(input: GetUploadUrlDTO!): GetUploadUrlFromKeyResponse!
+  initiateAgoraCall(body: InitiateAgoraCallInput!): AgoraCallTokenResponse!
+  invalidateCloudFrontCache(keys: [String!]!): MessageResponse!
+  loginWithApple(deviceId: String!, idToken: String!): LoginWithAppleResponse!
+  loginWithBiometric(body: BiometricLoginInput!): BiometricLoginResponse!
+  loginWithEmailPassword(body: LoginEmailPasswordInput!): LoginWithEmailResponse!
+  loginWithFacebook(accessToken: String!, deviceId: String!): LoginWithFacebookResponse!
+  loginWithGoogle(deviceId: String!, idToken: String!): LoginWithGoogleResponse!
+  loginWithOTP(body: LoginWithOTPInput!): LoginResponse!
+  logout: MessageResponse!
+  logoutAll: MessageResponse!
+  refresh(refreshToken: String!): Token!
+  registerUser(body: SignupInput!): RegisterResponse!
+  registerWithEmail(body: EmailSignupOTPInput!): OTPResponse!
+  requestLoginOTP(body: RequestLoginOTPInput!): OTPResponse!
+  resendVerifyEmailOtp(body: EmailSignupOTPInput!): OTPResponse!
+  resetPassword(body: ResetPasswordInput!): MessageResponse!
+  saveDeviceInfo(body: DeviceInfoInput!): MessageResponse!
+  setPassword(password: String!): MessageResponse!
+  updateEmail(body: UpdateUserEmailDto!): OTPResponse!
+  updateProfile(body: UpdateUserProfile!): ProfileUpdateResponse!
+  verifyEmail(body: VerifyEmailInput!): VerifyEmailResponse!
+  verifyResetPasswordOTP(body: VerifyResetPasswordOtpInput!): MessageResponse!
+  verifyUpdateEmail(body: VerifyEmailInput!): MessageResponse!
+}
+
+type OTPResponse {
+  expiry: VerificationCodeExpiry
+  message: String!
+}
+
+input PreSignedUrlInput {
+  contentType: String
+  method: SignedUrlMethod!
+  path: String
+}
+
+type PreSignedUrlResponse {
+  message: String
+  url: String
+  urls: [String!]
+}
+
+type ProfileUpdateResponse {
+  message: String
+  user: UserResponse
+}
+
+type Query {
+  getAllThumbnail(input: AllThumbnailInput!): PreSignedUrlResponse!
+  getAppUserProfile(userId: String!): UserProfileResponse!
+  getCloudFrontSignUrl(key: String!): String!
+  getCloudFrontUrl(key: String!): String!
+  getCsrfToken: String!
+  getCustomThumbnail(input: ThumbnailInput!): PreSignedUrlResponse!
+  getPreSignedUrl(input: PreSignedUrlInput!): PreSignedUrlResponse!
+  getUploadAndFetchUrl(contentType: String!, key: String!): UploadUrlResponse!
+  hello: String!
+  listUserProfiles(input: ListUseProfilesDTO!): UserProfilesListResponse!
+  me: UserResponse!
+}
+
+type RegisterResponse {
+  expiry: VerificationCodeExpiry
+  message: String!
+  user: UserRespInEmailLogin
+}
+
+input RequestLoginOTPInput {
+  deviceId: String!
+  email: String!
+}
+
+input ResetPasswordInput {
+  email: String!
+  password: String!
+  verificationCode: String!
+}
+
+enum SignedUrlMethod {
+  GET
+  PUT
+}
+
+input SignupInput {
+  deviceId: String!
+  email: String!
+  firstName: String
+  lastName: String
+  loginFlowType: LoginFlowType = otp
+  password: String
+  phoneNumber: UpdatePhoneNumberInput
+}
+
+type SocialLoginResponse {
+  message: String
+  token: Token!
+  user: UserRespInSocialLogin
+}
+
+input ThumbnailInput {
+  height: Float
+  key: String!
+  width: Float
+}
+
+type Token {
+  accessToken: String
+  accessTokenExpiresIn: DateTime
+  refreshToken: String
+  refreshTokenExpiresIn: DateTime
+}
+
+input UpdatePhoneNumberInput {
+  dialCode: String!
+  number: String!
+}
+
+input UpdateUserEmailDto {
+  deviceId: String!
+  email: String!
+}
+
+input UpdateUserProfile {
+  address: AddressInput
+  bio: String
+  firstName: String
+  lastName: String
+  profileImage: String
+}
+
+type UploadUrlResponse {
+  fetchUrl: String!
+  key: String!
+  uploadUrl: String!
+}
+
+type UserDetailsResponse {
+  _id: String!
+  authProvider: String
+  authProviderId: String
+  firstName: String
+  lastName: String
+  profileImage: String
+  profileImageThumbnails: [String!]
+}
+
+type UserProfileResponse {
+  _id: String!
+  firstName: String
+  lastName: String
+  profileImage: String
+  profileImageThumbnails: [String!]
+}
+
+type UserProfilesListResponse {
+  message: String
+  pagination: BasePaginationResponse
+  users: [UserDetailsResponse!]
+}
+
+type UserRespInAppleLogin {
+  _id: String
+  cometAuthToken: String
+  email: String
+  loginType: String
+}
+
+type UserRespInEmailLogin {
+  _id: String
+  cometAuthToken: String
+  email: String
+  loginFlowType: LoginFlowType
+  loginType: String
+  status: UserStatus
+}
+
+type UserRespInFacebookLogin {
+  _id: String
+  cometAuthToken: String
+  email: String
+  loginType: String
+}
+
+type UserRespInGoogleLogin {
+  _id: String
+  cometAuthToken: String
+  email: String
+  loginType: String
+}
+
+type UserRespInLogin {
+  _id: String
+  cometAuthToken: String
+  email: String
+  loginType: String
+}
+
+type UserRespInSocialLogin {
+  _id: String
+  cometAuthToken: String
+  email: String
+  loginType: String
+}
+
+type UserResponse {
+  _id: String!
+  acceptedTermsVersion: String
+  address: AddressResponse
+  authProvider: String
+  authProviderId: String
+  bio: String
+  firstName: String
+  isBiometricEnabled: Boolean
+  isTermsVersionSynced: Boolean
+  lastName: String
+  loginFlowType: LoginFlowType
+  profileImage: String
+  profileImageThumbnails: [String!]
+  status: UserStatus
+}
+
+enum UserStatus {
+  email_verification_pending
+  email_verified
+  password_set
+  password_set_pending
+}
+
+type VerificationCodeExpiry {
+  expiresAt: DateTime!
+  expiresBy: Float
+}
+
+input VerifyEmailInput {
+  email: String!
+  verificationCode: String!
+}
+
+type VerifyEmailResponse {
+  expiry: VerificationCodeExpiry
+  message: String
+  token: Token
+  user: UserRespInEmailLogin
+}
+
+input VerifyResetPasswordOtpInput {
+  email: String!
+  verificationCode: String!
+}

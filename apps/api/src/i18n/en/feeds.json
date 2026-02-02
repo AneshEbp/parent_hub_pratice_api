@@ -1,0 +1,18 @@
+{
+  "cannot_create_feed_with_no_content": "Cannot create feed without content",
+  "feed_created": "Feed created successfully",
+  "feed_listed": "Feed listed successfully",
+  "feed_not_found": "Feed not found",
+  "feed_owner_not_found": "Feed owner not found",
+  "feed_fetched": "Feed fetched successfully",
+  "no_permission_to_update": "No permission to update",
+  "cannot_update_feed_with_no_content": "Cannot update feed without content",
+  "feed_updated": "Feed updated successfully",
+  "no_permission_to_delete": "No permission to delete",
+  "feed_deleted": "Feed deleted successfully",
+  "feed_not_published_or_public": "Feed not published or public",
+  "already_liked": "Already liked",
+  "feed_liked": "Liked a feed",
+  "cannot_unlike_feed": "Cannot unlike feed",
+  "feed_unliked": "Unliked a feed"
+}

@@ -1,0 +1,15 @@
+{
+  "user_delete": "Delete user account successful",
+  "user_list": "User profiles list successfully",
+  "terms_and_condition_not_found":"Terms and conditions doesn't exist",
+  "terms_and_condition_accepted":"Terms and conditions accepted successfully",
+  "disposable_email_not_allowed":"Email with this domain is not allowed",
+  "invalid_extension":"Invalid profile image extension",
+  "profile_updated_successfully":"Profile updated successfully",
+  "cannot_update_same_email":"Can not update the same email address",
+  "email_already_exists":"Email not available",
+  "verification_code_sent_to_email":"Verification code sent to your email please use that code to verify your email",
+  "invalid_verification_code":"Invalid verification code",
+  "email_updated":"Email verified and updated successfully",
+  "unauthorized_user":"Unauthorizedenglish"
+}

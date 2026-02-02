@@ -1,0 +1,5 @@
+{
+    "invalid_date_of_birth": "Invalid date of birth",
+    "date_of_birth_should_be_grater_then_18": "Date of birth should be grater then 18",
+    "user_not_found": "User not found"
+  }

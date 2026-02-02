@@ -1,0 +1,12 @@
+{
+  "already_subscribed": "Already subscribed!!",
+  "create_error": "Could not create subscription",
+  "create_successfully": "Subscription created successfully",
+  "update_not_allowed": "Cannot update subscription!!",
+  "update_successfully": "Subscription updated successfully",
+  "no_sunscription_to_cancel": "No subscription to cancel",
+  "canceled_successfully": "subscription canceled successfully",
+  "no_subscription_trial_end": "No subscription trial to end",
+  "subscription_trial_already_canceled": "Subscription trial already canceled",
+  "trial_ended_successfully": "Trial ended successfully"
+}

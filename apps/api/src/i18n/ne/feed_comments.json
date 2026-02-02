@@ -1,0 +1,15 @@
+{
+  "comment_content_required": "टिप्पणी सामग्री आवश्यक छ",
+  "feed_not_found": "फीड फेला परेन वा प्रकाशित भएको छैन",
+  "comment_not_found": "टिप्पणी फेला परेन",
+  "feed_comment_posted": "फीड टिप्पणी सफलतापूर्वक पोस्ट गरियो",
+  "no_permission_to_update": "अद्यावधिक गर्न अनुमति छैन",
+  "comment_updated_successfully": "टिप्पणी सफलतापूर्वक अद्यावधिक गरियो",
+  "feed_comment_listed": "फीड टिप्पणीहरू सफलतापूर्वक सूचीबद्ध गरियो",
+  "no_permission_to_delete": "मेटाउन अनुमति छैन",
+  "comment_deleted": "टिप्पणी सफलतापूर्वक मेटाइयो",
+  "already_liked": "पहिले नै मन पराइएको",
+  "like_a_comment": "टिप्पणीलाई मन पराइयो",
+  "cannot_unlike_comment": "टिप्पणीलाई मन नपराउन सकिँदैन",
+  "unliked_comment": "टिप्पणीलाई मन नपराइयो"
+}

@@ -1,0 +1,18 @@
+{
+  "cannot_create_feed_with_no_content": "सामग्री बिना फीड बनाउन सकिँदैन",
+  "feed_created": "फीड सफलतापूर्वक सिर्जना गरियो",
+  "feed_listed": "फीड सफलतापूर्वक सूचीबद्ध गरियो",
+  "feed_not_found": "फीड फेला परेन",
+  "feed_owner_not_found": "फीड मालिक फेला परेन",
+  "feed_fetched": "फीड सफलतापूर्वक फेला पारियो",
+  "no_permission_to_update": "अद्यावधिक गर्न अनुमति छैन",
+  "cannot_update_feed_with_no_content": "सामग्री बिना फीड अद्यावधिक गर्न सकिँदैन",
+  "feed_updated": "फीड सफलतापूर्वक अद्यावधिक गरियो",
+  "no_permission_to_delete": "मेटाउन अनुमति छैन",
+  "feed_deleted": "फीड सफलतापूर्वक मेटाइयो",
+  "feed_not_published_or_public": "फीड प्रकाशित भएको छैन वा सार्वजनिक छैन",
+  "already_liked": "पहिले नै मन पराइएको",
+  "feed_liked": "फीडलाई मन पराइयो",
+  "cannot_unlike_feed": "फीडलाई मन नपराउन सकिँदैन",
+  "feed_unliked": "फीडलाई मन नपराइयो"
+}

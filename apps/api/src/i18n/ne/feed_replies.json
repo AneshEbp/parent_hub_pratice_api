@@ -1,0 +1,14 @@
+{
+  "reply_content_required": "उत्तर सामग्री आवश्यक छ",
+  "comment_not_found": "टिप्पणी फेला परेन",
+  "comment_reply_posted": "टिप्पणी उत्तर सफलतापूर्वक पोस्ट गरियो",
+  "comment_reply_list": "टिप्पणी उत्तरहरू सफलतापूर्वक सूचीबद्ध गरियो",
+  "reply_not_found": "उत्तर फेला परेन",
+  "no_permission_to_update": "अद्यावधिक गर्न अनुमति छैन",
+  "reply_updated": "उत्तर सफलतापूर्वक अद्यावधिक गरियो",
+  "no_permission_to_delete": "मेटाउन अनुमति छैन",
+  "already_liked": "पहिले नै मन पराइएको",
+  "reply_liked": "उत्तरलाई मन पराइयो",
+  "unlike_reply": "उत्तरलाई मन नपराउन सकिँदैन",
+  "reply_deleted_successfully": "उत्तर सफलतापूर्वक मेटाइयो"
+}

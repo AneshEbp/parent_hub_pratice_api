@@ -1,0 +1,10 @@
+{
+  "product_id_reqiured": "Product ID is required",
+  "receipt_error": "Error validating receipt",
+  "coin_added_successfully":"Coin added successfully",
+
+
+  "coin_listed_successfully":"Coin listed successfully",
+  "coin_pack_not_found":"Coin package not found",
+  "receipt_already_verified":"Receipt already verified"
+}

@@ -1,0 +1,6 @@
+{
+  "receipt_error": "रसीद मान्यकरणमा त्रुटि",
+  "package_already_subscribed_from_another_user": "अरू प्रयोगकर्ताबाट यो प्याकेज पहिल्यै सदस्यता लिइएको छ",
+  "package_already_subscribed_from_this_account": "यस खाताबाट पहिल्यै सदस्यता लिइएको छ",
+  "package_already_subscribed_from_another_account": "अरू खाताबाट यो प्याकेज पहिल्यै सदस्यता लिइएको छ"
+}

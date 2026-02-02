@@ -1,0 +1,12 @@
+{
+  "already_subscribed": "पहिल्यै सदस्यता लिइएको छ!!",
+  "create_error": "सदस्यता सिर्जना गर्न सकेन",
+  "create_successfully": "सदस्यता सफलतापूर्वक सिर्जना गरियो",
+  "update_not_allowed": "सदस्यता अपडेट गर्न सकिँदैन!!",
+  "update_successfully": "सदस्यता सफलतापूर्वक अपडेट गरियो",
+  "no_sunscription_to_cancel": "हटाउनको लागि कुनै सदस्यता छैन",
+  "canceled_successfully": "सदस्यता सफलतापूर्वक हटाइयो",
+  "no_subscription_trial_end": "समाप्त गर्नको लागि कुनै सदस्यता परीक्षण छैन",
+  "subscription_trial_already_canceled": "सदस्यता परीक्षण पहिल्यै हटाइयो",
+  "trial_ended_successfully": "परीक्षण सफलतापूर्वक समाप्त भयो"
+}

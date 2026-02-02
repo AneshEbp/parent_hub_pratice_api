@@ -1,0 +1,14 @@
+{
+  "reply_content_required": "Reply content is required",
+  "comment_not_found": "Comment not found",
+  "comment_reply_posted": "Comment reply posted successfully",
+  "comment_reply_list": "Comment replies listed successfully",
+  "reply_not_found": "Reply not found",
+  "no_permission_to_update": "No permission to update",
+  "reply_updated": "Reply updated successfully",
+  "no_permission_to_delete": "No permission to delete",
+  "already_liked": "Already liked",
+  "reply_liked": "Liked a reply",
+  "unlike_reply": "Cannot unlike reply",
+  "reply_deleted_successfully": "Reply deleted successfully"
+}

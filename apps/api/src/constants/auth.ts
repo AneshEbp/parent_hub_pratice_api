@@ -1,0 +1,5 @@
+export const MULTIPLY_BRFORE_MS = 172800000;
+export const MAX_ATTEMPTS_FROM_DEVICE = 20;
+export const SMS_CODE_EXPIRE_BY = 120000;
+export const SMS_CODE_EXPIRE_MULTIPLIER = 2;
+export const MAX_OTP_ATTEMPT = 20;

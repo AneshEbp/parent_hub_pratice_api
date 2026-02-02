@@ -1,0 +1,15 @@
+{
+  "connect_account_success": "Connect account added successfully",
+  "business_only_create_connect": "Only business account can create connect account",
+  "bank_account_added_success": "Bank account added sucessfully",
+  "business_user_fetch_error": "User has no business",
+  "bank_already_connected": "Bank account already connected",
+  "bank_account_not_found": "Bank account not found",
+  "business_user_not_found": "No business user found with this id",
+  "Invalid_role": "Invalid role for bank account linking",
+  "account_already_connected": "Account already connected",
+  "account_not_found": "Account not found",
+  "bank_account_removed": "Bank account removed sucessfully",
+  "bank_account_set_default": "Bank account set as default successfully",
+  "business_type_does_not_match": "Bussiness type does not match"
+}

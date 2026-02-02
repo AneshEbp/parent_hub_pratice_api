@@ -1,0 +1,8 @@
+{
+  "product_id_reqiured": "उत्पादन आईडी आवश्यक छ",
+  "receipt_error": "रसीद प्रमाणित गर्दा त्रुटि",
+  "coin_added_successfully": "सिक्का सफलतापूर्वक थपियो",
+  "coin_listed_successfully": "सिक्का सफलतापूर्वक सूचीबद्ध गरियो",
+  "coin_pack_not_found": "सिक्का प्याकेज भेटिएन",
+  "receipt_already_verified": "रसीद पहिले नै प्रमाणित गरिएको छ"
+}

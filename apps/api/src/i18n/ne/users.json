@@ -1,0 +1,15 @@
+{
+  "user_delete": "प्रयोगकर्ता खाता मेट्न सफल",
+  "user_list": "प्रयोगकर्ता प्रोफाइल सूची सफल",
+  "terms_and_condition_not_found": "शर्त र सर्तहरू उपलब्ध छैनन्",
+  "terms_and_condition_accepted": "शर्त र सर्तहरू सफलतापूर्वक स्वीकार गरियो",
+  "disposable_email_not_allowed": "यस डोमेनको इमेल अनुमति छैन",
+  "invalid_extension": "प्रोफाइल छवि एक्सटेन्सन अमान्य",
+  "profile_updated_successfully": "प्रोफाइल सफलतापूर्वक अद्यावधिक गरियो",
+  "cannot_update_same_email": "समान इमेल ठेगाना अद्यावधिक गर्न सकिन्न",
+  "email_already_exists": "इमेल उपलब्ध छैन",
+  "verification_code_sent_to_email": "तपाईंको इमेलमा प्रमाणीकरण कोड पठाइयो, कृपया त्यो कोड प्रयोग गरी आफ्नो इमेल प्रमाणित गर्नुहोस्",
+  "invalid_verification_code": "अमान्य प्रमाणीकरण कोड",
+  "email_updated": "इमेल प्रमाणित र सफलतापूर्वक अद्यावधिक गरियो",
+  "unauthorized_user": "अनधिकृत प्रयोगकर्ता"
+}

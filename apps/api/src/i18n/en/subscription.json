@@ -1,0 +1,6 @@
+{
+  "receipt_error": "Error validating receipt",
+  "package_already_subscribed_from_another_user": "Already subscribed this package from another user",
+  "package_already_subscribed_from_this_account": "Already subscribed from this account",
+  "package_already_subscribed_from_another_account": "Already subscribed this package from another account"
+}

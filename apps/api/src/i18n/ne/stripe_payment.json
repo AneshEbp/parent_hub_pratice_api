@@ -1,0 +1,23 @@
+{
+  "cannot_delete_card": "कार्ड हटाउन सकिँदैन",
+  "atlease_one_default_source": "यो तपाईंको डिफ़ल्ट स्रोत हो। कृपया अर्को स्रोतलाई डिफ़ल्ट बनाउनुहोस्",
+  "error_deleting_card": "कार्ड हटाउँदा त्रुटि। कृपया केही समयपछि पुनः प्रयास गर्नुहोस्",
+  "error_making_default_card": "डिफ़ल्ट कार्ड बनाउँदा त्रुटि",
+  "error_stripe_customer": "स्ट्राइप ग्राहक प्राप्त गर्न त्रुटि",
+  "payment_intent_fail": "भुक्तानी उद्देश्य असफल",
+  "payment_made_successfully": "भुक्तानी सफलतापूर्वक गरिएको",
+  "ephemeral_key_created": "अस्थायी कुञ्जी सफलतापूर्वक सिर्जना गरियो",
+  "bank_account_already_connected": "बैंक खाता पहिल्यै जडान गरिएको",
+  "bank_detail_added_successfully": "बैंक विवरण सफलतापूर्वक थपियो",
+  "bank_account_not_connected": "बैंक खाता अझै जडान गरिएको छैन!!",
+  "bank_detail_updated": "बैंक विवरण सफलतापूर्वक अपडेट गरियो",
+  "payment_history_listed": "भुक्तानी इतिहास सफलतापूर्वक सूचीबद्ध",
+  "cannot_request_payout_before_one_week_of_last_payout": "पछिल्लो भुक्तानीको एक हप्ता अघि भुक्तानीको लागि अनुरोध गर्न सकिँदैन",
+  "error_during_transferring": "प्रयोगकर्ता बैंक खातामा रकम स्थानान्तरण गर्दा त्रुटि",
+  "amount_payout_to_user": "प्रयोगकर्तालाई रकम भुक्तानी",
+  "card_added_successfully": "कार्ड सफलतापूर्वक थपियो",
+  "card_removed_successfully": "कार्ड सफलतापूर्वक हटाइयो",
+  "card_made_default": "कार्ड सफलतापूर्वक डिफ़ल्ट बनाइयो",
+  "user_not_found": "प्रयोगकर्ता फेला परेन",
+  "payment_method_created": "भुक्तानी विधि सिर्जना गरियो"
+}
