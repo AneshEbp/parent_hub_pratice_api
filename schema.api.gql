@@ -52,6 +52,11 @@ type BasePaginationResponse {
   total: Float!
 }
 
+type BatchResponse {
+  results: [MessageResult!]
+  total: Float
+}
+
 type BiometricEnableResponse {
   biometricToken: String
   biometricTokenExpiresIn: DateTime
@@ -214,6 +219,23 @@ type MessageResponse {
   message: String
 }
 
+type MessageResult {
+  action_items: [String!]
+  assign_to: [String!]
+  create_task: Boolean
+  entities: [String!]
+  event_type: String
+  extracted_datetime: String
+  has_deadline: Boolean
+  intent: String
+  intent_confidence: Float
+  is_assistance_request: Boolean
+  is_event: Boolean
+  sentiment: String
+  text: String
+  urgency: String
+}
+
 type Mutation {
   LoginWithTiktok(code: String!, deviceId: String!): SocialLoginResponse!
   acceptTermsAndConditions: MessageResponse!
@@ -234,6 +256,7 @@ type Mutation {
   loginWithOTP(body: LoginWithOTPInput!): LoginResponse!
   logout: MessageResponse!
   logoutAll: MessageResponse!
+  processBatch(messages: [String!]!): BatchResponse!
   refresh(refreshToken: String!): Token!
   registerUser(body: SignupInput!): RegisterResponse!
   registerWithEmail(body: EmailSignupOTPInput!): OTPResponse!

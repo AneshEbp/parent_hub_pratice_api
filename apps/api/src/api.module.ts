@@ -9,6 +9,7 @@ import { ApiResolver } from './api.resolver';
 import { EmailModule } from '@app/email/email.module';
 import { UsersModule } from './modules/users/users.module';
 import { AgoraModule } from './modules/agora/agora.module';
+import { ProcessorModule } from './modules/processor/processor.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { AgoraModule } from './modules/agora/agora.module';
     AuthModule,
     EmailModule.forRoot(),
     UsersModule,
-    AgoraModule
+    AgoraModule,
+    ProcessorModule
   ],
   controllers: [ApiController],
   providers: [ApiService, ApiResolver],
