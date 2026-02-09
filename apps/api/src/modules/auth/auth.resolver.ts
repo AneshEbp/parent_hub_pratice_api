@@ -294,6 +294,7 @@ export class AuthResolver {
   ) {
     const ip = req.headers['x-forwarded-for'] || '';
     const agent = req.headers['user-agent'];
+    console.log({...body})
     const loginDetail = await this.authService.loginWithEmail({ ...body, ip, agent });
     return { message: i18n.t('auth.login_successfully'), ...loginDetail };
   }

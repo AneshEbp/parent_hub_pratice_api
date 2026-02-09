@@ -31,7 +31,7 @@ import { LoggingInterceptor } from '@app/common/interceptors/logging.interceptor
  * @typedef {UsersResolver}
  */
 @Resolver(() => UserDetailsResponse)
-@UseGuards(AuthUserGuard, TermsGuard)
+@UseGuards(AuthUserGuard)
 @UseInterceptors(LoggingInterceptor)
 export class UsersResolver {
   /**
@@ -168,6 +168,7 @@ export class UsersResolver {
       lastName: 1,
       profileImage: 1,
       bio: 1,
+
     });
   }
 

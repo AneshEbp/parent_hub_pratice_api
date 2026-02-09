@@ -21,7 +21,7 @@ import { I18n, I18nContext } from 'nestjs-i18n';
  * @typedef {AgoraResolver}
  */
 @Resolver(() => AgoraTokenResponse)
-@UseGuards(AuthUserGuard, TermsGuard)
+@UseGuards(AuthUserGuard)
 export class AgoraResolver {
   /**
    * Creates an instance of AgoraResolver.
@@ -41,7 +41,8 @@ export class AgoraResolver {
     @LoginDetail() { userId }: LoginDetailType,
     @I18n() i18n: I18nContext,
   ): Promise<AgoraTokenResponse> {
-    const { token, channelName, userAccount } = await this.agoraService.createAgoraToken(userId);
+    const { token, channelName, userAccount } =
+      await this.agoraService.createAgoraToken(userId);
     return {
       message: i18n.t('agora.token_generated'),
       token,
@@ -88,6 +89,10 @@ export class AgoraResolver {
   async createAgoraChatUserToken(
     @LoginDetail() { userId }: LoginDetailType,
   ): Promise<AgoraChatUserTokenResponse> {
-    return await this.agoraService.createAgoraChatUserToken(userId);
+    console.log("apihit")
+    console.log(userId)
+    const result = await this.agoraService.createAgoraChatUserToken(userId);
+    console.log("agora chat token result", result)
+    return result;
   }
 }
