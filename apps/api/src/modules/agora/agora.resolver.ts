@@ -89,10 +89,17 @@ export class AgoraResolver {
   async createAgoraChatUserToken(
     @LoginDetail() { userId }: LoginDetailType,
   ): Promise<AgoraChatUserTokenResponse> {
-    console.log("apihit")
-    console.log(userId)
+    console.log('apihit');
+    console.log(userId);
     const result = await this.agoraService.createAgoraChatUserToken(userId);
-    console.log("agora chat token result", result)
+    console.log('agora chat token result', result);
+    return result;
+  }
+
+  @Mutation(() => String)
+  async getRestToken() {
+    console.log("i m here")
+    const result = await this.agoraService.getChatHistory();
     return result;
   }
 }

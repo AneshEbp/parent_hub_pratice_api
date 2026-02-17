@@ -199,30 +199,32 @@ export class UsersService {
     try {
       const { firstName, lastName, address, bio, profileImage } = data;
       const updates: UpdateProfilInterface = {};
-
+      console.log(data)
       // Set basic fields
-      this.setBasicUserFields(firstName, lastName, bio, updates);
+      // this.setBasicUserFields(firstName, lastName, bio, updates);
 
       // Fetch user data
       const user = await this.userRepository.findById(userId, { profileImage: 1 });
-      const prevImageKey = user?.profileImage;
+      // const prevImageKey = user?.profileImage;
 
       // Handle profile image update
-      const isProfileUpdated = await this.handleProfileImageUpdate(
-        profileImage,
-        prevImageKey,
-        updates,
-        userId,
-      );
+      const isProfileUpdated=true
+      // const isProfileUpdated = await this.handleProfileImageUpdate(
+      //   profileImage,
+      //   prevImageKey,
+      //   updates,
+      //   userId,
+      // );
 
       // Handle address update
-      this.setAddressFields(address, updates);
+      // this.setAddressFields(address, updates);
 
+      updates.firstName=data.firstName
       // Perform user update
       const userUpdate = await this.userRepository.updateById(userId, updates, { new: true });
-
+      console.log("userupdates", userUpdate)
       // Update Agora if necessary
-      if (userUpdate?.agoraUuid && isProfileUpdated) {
+      if (userUpdate?.agoraUuid ) {
         await this.updateAgoraUser(userUpdate, userId);
       }
 
@@ -296,11 +298,22 @@ export class UsersService {
   }
 
   private async updateAgoraUser(userUpdate: any, userId: string) {
+    console.log("here")
     await this.agoraHelperService.updateChatUser(userId, {
-      nickname: String(userId),
-      avatarurl: await this.s3Service.getS3Url(
-        `public/profiles/${userId}/${userUpdate?.profileImage}`,
-      ),
+      nickname: userUpdate.firstName,
+      // avatarurl: await this.s3Service.getS3Url(
+      //   `public/profiles/${userId}/${userUpdate?.profileImage}`,
+      // ),
+      ...(userUpdate?.authProvider === 'email' && {
+        mail: userUpdate?.authProviderId,
+      }),
+    });
+  }
+
+   async updateAgoraUsers(userUpdate: any, userId: string) {
+    await this.agoraHelperService.updateChatUser(userId, {
+      nickname: userUpdate.nickname,
+      avatarurl: userUpdate.profileUrl,
       ...(userUpdate?.authProvider === 'email' && {
         mail: userUpdate?.authProviderId,
       }),
@@ -324,20 +337,20 @@ export class UsersService {
       bio: userUpdate?.bio,
     } as ProfileUpdateResponse['user'];
 
-    if (userUpdate?.profileImage) {
-      const profileImageKey = `public/profiles/${userId}/${profileImage}`;
-      if (isProfileUpdated) {
-        await this.s3Service.copyObject(`${S3_TEMP_FOLDER_NAME}/${profileImage}`, profileImageKey);
-        await this.userRepository.updateById(userId, { profileImage: profileImageKey });
-      }
-      userResp.profileImage = await this.s3Service.getPreSignedUrl(
-        profileImageKey,
-        SignedUrlMethod.GET,
-      );
-      userResp.profileImageThumbnails = await this.s3Service.getAllThumbnail(profileImageKey);
-    } else {
-      await this.s3Service.deleteKey(`public/profiles/${userId}/${userUpdate?.profileImage}`);
-    }
+    // if (userUpdate?.profileImage) {
+    //   const profileImageKey = `public/profiles/${userId}/${profileImage}`;
+    //   if (isProfileUpdated) {
+    //     await this.s3Service.copyObject(`${S3_TEMP_FOLDER_NAME}/${profileImage}`, profileImageKey);
+    //     await this.userRepository.updateById(userId, { profileImage: profileImageKey });
+    //   }
+    //   userResp.profileImage = await this.s3Service.getPreSignedUrl(
+    //     profileImageKey,
+    //     SignedUrlMethod.GET,
+    //   );
+    //   userResp.profileImageThumbnails = await this.s3Service.getAllThumbnail(profileImageKey);
+    // } else {
+    //   await this.s3Service.deleteKey(`public/profiles/${userId}/${userUpdate?.profileImage}`);
+    // }
 
     if (userUpdate?.address) {
       userResp.address = {

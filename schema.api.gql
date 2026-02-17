@@ -246,6 +246,7 @@ type Mutation {
   forgotPassword(body: ForgotPasswordInput!): ForgotPasswordResponse!
   getAgoraToken: AgoraTokenResponse!
   getPublicUploadUrl(input: GetUploadUrlDTO!): GetUploadUrlFromKeyResponse!
+  getRestToken: String!
   initiateAgoraCall(body: InitiateAgoraCallInput!): AgoraCallTokenResponse!
   invalidateCloudFrontCache(keys: [String!]!): MessageResponse!
   loginWithApple(deviceId: String!, idToken: String!): LoginWithAppleResponse!
@@ -265,6 +266,7 @@ type Mutation {
   resetPassword(body: ResetPasswordInput!): MessageResponse!
   saveDeviceInfo(body: DeviceInfoInput!): MessageResponse!
   setPassword(password: String!): MessageResponse!
+  updateAgoraUser(body: UpdateAgoraUserInput!): Boolean!
   updateEmail(body: UpdateUserEmailDto!): OTPResponse!
   updateProfile(body: UpdateUserProfile!): ProfileUpdateResponse!
   verifyEmail(body: VerifyEmailInput!): VerifyEmailResponse!
@@ -357,6 +359,11 @@ type Token {
   accessTokenExpiresIn: DateTime
   refreshToken: String
   refreshTokenExpiresIn: DateTime
+}
+
+input UpdateAgoraUserInput {
+  nickname: String!
+  profileUrl: String!
 }
 
 input UpdatePhoneNumberInput {

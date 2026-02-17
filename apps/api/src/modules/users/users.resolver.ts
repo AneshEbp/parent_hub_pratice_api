@@ -10,15 +10,21 @@ import { OTPResponse } from '../auth/dto/response/otp.response';
 import { UpdateUserEmailDto } from './dto/input/update-email.input';
 import { VerifyEmailInput } from '../auth/dto/input/verify-email.input';
 import { MessageResponse } from '@app/common/dto/response/message.response';
-import { UserProfileResponse, UserResponse } from '@api/common/dto/user.response';
+import {
+  UserProfileResponse,
+  UserResponse,
+} from '@api/common/dto/user.response';
 import { ParseObjectIdPipe } from '@app/common/pipe/parse-mongoid.pipe';
 import { ListUseProfilesDTO } from './dto/input/list-user.dto';
-import { UserDetailsResponse, UserProfilesListResponse } from './dto/response/user-list.response';
+import {
+  UserDetailsResponse,
+  UserProfilesListResponse,
+} from './dto/response/user-list.response';
 import { TermsGuard } from '@api/guards/terms.guard';
 import { I18n, I18nContext } from 'nestjs-i18n';
 import { SkipTermsAcceptanceCheck } from '../auth/decorator/terms.decorator';
 import { LoggingInterceptor } from '@app/common/interceptors/logging.interceptor';
-
+import { UpdateAgoraUserInput } from './dto/input/agora-updates';
 
 /**
  * Resolver for user-related operations, including profile management,
@@ -44,7 +50,7 @@ export class UsersResolver {
   constructor(
     private readonly usersService: UsersService,
     // private readonly s3Service: S3Service,
-  ) { }
+  ) {}
 
   /**
    * Deletes the user account for the authenticated user.
@@ -138,6 +144,19 @@ export class UsersResolver {
     return this.usersService.verifyUpdateEmail(loginDetail.userId, body);
   }
 
+  @Mutation(()=>Boolean)
+  async updateAgoraUser(
+    @LoginDetail() loginDetail: any,
+    @Args('body') body: UpdateAgoraUserInput,
+  ) {
+    const result = await this.usersService.updateAgoraUsers(
+      body,
+      loginDetail.userId,
+    );
+    console.log(result)
+    return true
+  }
+
   /**
    * Retrieves the profile of the authenticated user.
    *
@@ -168,7 +187,6 @@ export class UsersResolver {
       lastName: 1,
       profileImage: 1,
       bio: 1,
-
     });
   }
 

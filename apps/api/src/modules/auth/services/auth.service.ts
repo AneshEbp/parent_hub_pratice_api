@@ -245,6 +245,7 @@ export class AuthService {
         const chatUserUuid = await this.agoraHelperService.getChatUserUuid(
           String(user._id),
           user?.authProviderId,
+          user.firstName
         );
         if (chatUserUuid) {
           await this.userRepository.updateById(user._id, {
@@ -329,6 +330,7 @@ export class AuthService {
         const chatUserUuid = await this.agoraHelperService.getChatUserUuid(
           String(user._id),
           user?.authProviderId,
+          user.firstName
         );
         if (chatUserUuid) {
           await this.userRepository.updateById(user._id, {
@@ -418,6 +420,7 @@ export class AuthService {
         const chatUserUuid = await this.agoraHelperService.getChatUserUuid(
           String(user._id),
           user?.authProviderId,
+          user.firstName
         );
         if (chatUserUuid) {
           await this.userRepository.updateById(user._id, {
@@ -621,6 +624,7 @@ export class AuthService {
         const chatUserUuid = await this.agoraHelperService.getChatUserUuid(
           String(user._id),
           user?.authProviderId,
+          user.firstName
         );
         if (chatUserUuid) {
           await this.userRepository.updateById(user._id, {
@@ -858,6 +862,7 @@ export class AuthService {
         const chatUserUuid = await this.agoraHelperService.getChatUserUuid(
           String(user._id),
           user?.authProviderId,
+          user.firstName
         );
 
         if (chatUserUuid) {
@@ -1362,6 +1367,7 @@ export class AuthService {
         const chatUserUuid = await this.agoraHelperService.getChatUserUuid(
           String(user._id),
           user?.authProviderId,
+          user.firstName
         );
         if (chatUserUuid) {
           await this.userRepository.updateById(user._id, {

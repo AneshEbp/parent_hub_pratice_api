@@ -1,6 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
-import { PushNotificationTokenRepository, UsersRepository } from '@app/data-access';
+import {
+  PushNotificationTokenRepository,
+  UsersRepository,
+} from '@app/data-access';
 import { AGORA_USER_TOKEN_EXPIRY } from '@api/constants';
 import { CHANNEL_NAME, CHAT_TYPE, DEVICE_TYPE } from './constants';
 import { I18nService } from 'nestjs-i18n';
@@ -42,10 +45,8 @@ export class AgoraService {
     try {
       const channelName = CHANNEL_NAME; // use dynamic channel name later
 
-      const tokenWithAccount = await this.agoraHelperService.createAgoraCallToken(
-        userId,
-        channelName,
-      );
+      const tokenWithAccount =
+        await this.agoraHelperService.createAgoraCallToken(userId, channelName);
       return {
         token: tokenWithAccount,
         channelName,
@@ -65,12 +66,28 @@ export class AgoraService {
    * @param {string} callType
    * @returns {Promise<{ token: any; channelName: any; }>\}
    */
-  async initiateAgoraCall(callerId: string, calleeId: string, callType: string) {
+  async initiateAgoraCall(
+    callerId: string,
+    calleeId: string,
+    callType: string,
+  ) {
     try {
       const channelName = uuid();
-      const callerToken = await this.agoraHelperService.createAgoraCallToken(callerId, channelName);
-      const calleeToken = await this.agoraHelperService.createAgoraCallToken(calleeId, channelName);
-      await this.sendVOIPNotification(calleeId, calleeToken, callerId, callType, channelName);
+      const callerToken = await this.agoraHelperService.createAgoraCallToken(
+        callerId,
+        channelName,
+      );
+      const calleeToken = await this.agoraHelperService.createAgoraCallToken(
+        calleeId,
+        channelName,
+      );
+      await this.sendVOIPNotification(
+        calleeId,
+        calleeToken,
+        callerId,
+        callType,
+        channelName,
+      );
       return {
         token: callerToken,
         channelName,
@@ -93,11 +110,13 @@ export class AgoraService {
         agoraUuid: 1,
         authProviderId: 1,
       });
+      console.log(user);
       let chatUserUuid = user?.agoraUuid;
       if (!chatUserUuid) {
         chatUserUuid = await this.agoraHelperService.getChatUserUuid(
           String(userId),
           user?.authProviderId,
+          user.firstName,
         );
 
         if (!chatUserUuid) return null;
@@ -105,7 +124,9 @@ export class AgoraService {
           agoraUuid: chatUserUuid,
         });
       }
-      const token = await this.agoraHelperService.createAgoraChatUserToken(chatUserUuid);
+      const token =
+        await this.agoraHelperService.createAgoraChatUserToken(chatUserUuid);
+      console.log(token);
       return {
         message: this.i18nService.t('stripe_subscriptions.token_generated'),
         userToken: token,
@@ -136,10 +157,13 @@ export class AgoraService {
     channelName: string,
   ) {
     try {
-      const { firstName, lastName } = await this.usersRepository.findById(callerId, {
-        firstName: 1,
-        lastName: 1,
-      });
+      const { firstName, lastName } = await this.usersRepository.findById(
+        callerId,
+        {
+          firstName: 1,
+          lastName: 1,
+        },
+      );
 
       const pushTokens = await this.pushNotificationTokenRepo.find({
         userId: calleeId,
@@ -188,5 +212,11 @@ export class AgoraService {
     } catch (e) {
       throw new BadRequestException(e?.message);
     }
+  }
+
+  async getChatHistory() {
+    console.log("i m here")
+    const getRestToken = await this.agoraHelperService.getGroupList();
+    return "getRestToken";
   }
 }
