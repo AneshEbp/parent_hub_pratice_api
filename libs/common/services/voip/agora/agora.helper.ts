@@ -254,10 +254,7 @@ export class AgoraHelperService {
   // }
 
   // 🔹 2️⃣ Get Download URL for Hour
-   async getDownloadUrl(
-    hour: string,
-    token: string,
-  ): Promise<string | null> {
+  async getDownloadUrl(hour: string, token: string): Promise<string | null> {
     try {
       const response = await axios.get(
         `${this.baseURLChat}/chatmessages/${hour}`,
@@ -357,6 +354,4 @@ export class AgoraHelperService {
     }
     return allGroupMessages;
   }
-
-
 }

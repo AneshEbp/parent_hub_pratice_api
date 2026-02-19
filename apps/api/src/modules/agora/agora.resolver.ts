@@ -14,6 +14,7 @@ import { TermsGuard } from '@api/guards/terms.guard';
 import { I18n, I18nContext } from 'nestjs-i18n';
 import { ChatHistoryInput } from './dto/input/chatHistory.input';
 import { ChatHistoryResponse } from './dto/response/chatHistory.response';
+import { ChatFileMapResponse } from './dto/response/chat-dates.response';
 
 /**
  * ${1:Description placeholder}
@@ -110,9 +111,28 @@ export class AgoraResolver {
   @Query(() => ChatHistoryResponse)
   async getChatHistoryByDate(
     @Args('input', { type: () => ChatHistoryInput }) input: ChatHistoryInput,
-    @LoginDetail() {userId}: LoginDetailType,
+    @LoginDetail() { userId }: LoginDetailType,
   ) {
-    const messages = await this.agoraService.getChatHistoryByDate(userId, input);
+    const messages = await this.agoraService.getChatHistoryByDate(
+      userId,
+      input,
+    );
     return { messages };
+  }
+
+  @UseGuards(AuthUserGuard)
+  @Query(() => ChatFileMapResponse)
+  async getConversationFiles(
+    @LoginDetail() { userId }: LoginDetailType,
+    @Args('targetUser') targetUser: string,
+    @Args('chat_type') type:string
+  ) {
+    try {
+      console.log("i m here");
+      console.log(userId, targetUser, type)
+      return await this.agoraService.getChatFileMap(userId.toString(), targetUser, type);
+    } catch (err) {
+      throw new Error(`Could not fetch chat map: ${err.message}`);
+    }
   }
 }

@@ -17,6 +17,7 @@ import { ChatHistoryInput } from './dto/input/chatHistory.input';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as readline from 'readline';
+import { IConversationRepository } from '@app/data-access/conversation-index/iconversation.repository';
 
 /**
  * ${1:Description placeholder}
@@ -42,6 +43,7 @@ export class AgoraService {
     private readonly usersRepository: UsersRepository,
     private readonly pushNotificationTokenRepo: PushNotificationTokenRepository,
     private readonly i18nService: I18nService,
+    private readonly conversationRepository: IConversationRepository,
   ) {}
 
   private archiveDir = path.join(process.cwd(), 'archive');
@@ -255,22 +257,18 @@ export class AgoraService {
 
   async archiveChatHistory() {
     try {
-      // const hours = [
-      //   '2026021205',
-      //   '2026021206',
-      //   '2026021207',
-      //   '2026021208',
-      //   '2026021209',
-      //   '2026021210',
-      //   '2026021211',
-      //   '2026021212',
-      //   '2026021213',
-      //   '2026021214',
-      //   '2026021215',
-      //   '2026021216',
-      //   '2026021217',
-      // ];
-      const hours = this.generatePast24HourRange();
+      const hours = [
+        // '2026021504',
+        // '2026021205',
+        // '2026021206',
+        // '2026021207',
+        // '2026021208',
+        '2026021908',
+        // '2026021210',
+        // '2026021211',
+        // '2026021212',
+      ];
+      // const hours = this.generatePast24HourRange();
       await this.archiveDailyChat(hours);
       return 'History archived succesffuly';
     } catch (err) {
@@ -286,12 +284,14 @@ export class AgoraService {
   // 🔹 Save chat history
   public async archiveDailyChat(hours: string[]): Promise<void> {
     const appToken = await this.agoraHelperService.createAgoraChatAppToken();
-    const { writeStream, filePath } = prepareArchive();
-
+    const { writeStream, filePath, today } = prepareArchive();
+    // Extract just '2026-02-19.ndjson' from the full path
+    const fileNameOnly = path.basename(filePath);
+    const archiveDate = new Date(today);
     try {
       for (const hour of hours) {
         console.log(`Processing hour: ${hour}`);
-        await this.sleep(10000);
+        // await this.sleep(10000);
 
         try {
           const downloadUrl = await this.agoraHelperService.getDownloadUrl(
@@ -301,7 +301,13 @@ export class AgoraService {
 
           if (!downloadUrl) continue;
 
-          await streamAndAppend(downloadUrl, writeStream);
+          await streamAndAppend(
+            downloadUrl,
+            writeStream,
+            fileNameOnly,
+            archiveDate.toString(),
+            this.conversationRepository,
+          );
 
           console.log(`✅ Appended hour ${hour}`);
         } catch (error) {
@@ -318,13 +324,12 @@ export class AgoraService {
     const { date, targetUserId } = body;
     userId = userId.toString();
 
-    console.log(userId, body);
     // File format: 2026-02-18.ndjson
     const filePath = path.join(this.archiveDir, `${date}.ndjson`);
 
     if (!fs.existsSync(filePath)) {
-      console.log("i m here")
-      return [] ;
+      console.log('i m here');
+      return [];
     }
 
     const messages: any[] = [];
@@ -341,12 +346,20 @@ export class AgoraService {
 
       const chat = JSON.parse(line);
 
-      // Match conversation both directions
-      const isConversation =
-        (chat.from === userId && chat.to === targetUserId) ||
-        (chat.from === targetUserId && chat.to === userId);
+      let isMatch = false;
 
-      if (isConversation) {
+      if (chat.type === 'groupchat') {
+        // In group chats, the "to" field is the Group ID.
+        // We check if the targetUserId matches that Group ID.
+        isMatch = chat.to === targetUserId;
+      } else {
+        // Standard one-to-one logic
+        isMatch =
+          (chat.from === userId && chat.to === targetUserId) ||
+          (chat.from === targetUserId && chat.to === userId);
+      }
+
+      if (isMatch) {
         messages.push({
           id: chat.id,
           from: chat.from,
@@ -361,5 +374,24 @@ export class AgoraService {
     // Sort chronologically
     messages.sort((a, b) => a.time - b.time);
     return messages;
+  }
+
+  // inside agora.service.ts
+  async getChatFileMap(userA: string, userB: string, type: string) {
+    // Always sort to match the stored "anesh_hari" format
+
+    const convId =
+      type === 'groupchat' ? `group_${userB}` : [userA, userB].sort().join('_');
+
+    const files = await this.conversationRepository.findFilesForChat(convId);
+    console.log(files);
+    return {
+      conversationId: convId,
+      totalDaysActive: files.length,
+      files: files.map((f) => ({
+        name: f.fileName,
+        date: new Date(f.date).toISOString().split('T')[0],
+      })),
+    };
   }
 }

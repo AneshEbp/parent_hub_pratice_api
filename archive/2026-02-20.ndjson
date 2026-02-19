@@ -1,17 +1,12 @@
-{"id":"1517454408722418634","from":"admin","to":"hari","msg":"hello","type":"chat","ts":1770874686715}
-{"id":"1517463478896430058","from":"anesh","to":"hari","msg":"hello hari","type":"chat","ts":1770876798525}
-{"id":"1517463514380241898","from":"anesh","to":"hari","msg":"k gardai chau","type":"chat","ts":1770876806793}
-{"id":"1517464018225204162","from":"anesh","to":"hello world","msg":"whats","type":"chat","ts":1770876924087}
-{"id":"1517466386526374862","from":"anesh","to":"test","msg":"hello test","type":"chat","ts":1770877475510}
-{"id":"1517466417316760526","from":"anesh","to":"hari","msg":"k cha","type":"chat","ts":1770877482683}
-{"id":"1517467189290994634","from":"hari","to":"anesh","msg":"thikchu maw","type":"chat","ts":1770877662416}
-{"id":"1517467736190487502","from":"anesh","to":"hari","msg":"sachi kai ho","type":"chat","ts":1770877789759}
-{"id":"1517467861533068234","from":"hari","to":"anesh","msg":"ho ho","type":"chat","ts":1770877818947}
 {"id":"1517503758152502254","from":"698d931fca906f434f87bb0e","to":"698d8a8fca906f434f87bb09","msg":"hello anesh","type":"chat","ts":1770886176776}
 {"id":"1517503851609983942","from":"698d8a8fca906f434f87bb09","to":"698d931fca906f434f87bb0e","msg":"whatsup guys","type":"chat","ts":1770886198530}
 {"id":"1517503898468748230","from":"698d8a8fca906f434f87bb09","to":"698d931fca906f434f87bb0e","msg":"hi","type":"chat","ts":1770886209438}
 {"id":"1517503916919491566","from":"698d931fca906f434f87bb0e","to":"698d8a8fca906f434f87bb09","msg":"k gardai","type":"chat","ts":1770886213741}
 {"id":"1517504023584836550","from":"698d8a8fca906f434f87bb09","to":"698d931fca906f434f87bb0e","msg":"chat vaera cha","type":"chat","ts":1770886238572}
 {"id":"1517504553069579246","from":"698d931fca906f434f87bb0e","to":"698d8a8fca906f434f87bb09","msg":"k cha sathi","type":"chat","ts":1770886361859}
+{"id":"1517509024503827398","from":"698d8a8fca906f434f87bb09","to":"305648054108163","msg":"k cha guys","type":"groupchat","ts":1770887402948}
+{"id":"1517509082347473862","from":"698d931fca906f434f87bb0e","to":"305648054108163","msg":"thikcha sathi","type":"groupchat","ts":1770887416403}
+{"id":"1517509024503827398","from":"698d8a8fca906f434f87bb09","to":"305648054108163","msg":"k cha guys","type":"groupchat","ts":1770887402948}
+{"id":"1517509082347473862","from":"698d931fca906f434f87bb0e","to":"305648054108163","msg":"thikcha sathi","type":"groupchat","ts":1770887416403}
 {"id":"1517509024503827398","from":"698d8a8fca906f434f87bb09","to":"305648054108163","msg":"k cha guys","type":"groupchat","ts":1770887402948}
 {"id":"1517509082347473862","from":"698d931fca906f434f87bb0e","to":"305648054108163","msg":"thikcha sathi","type":"groupchat","ts":1770887416403}

@@ -8,6 +8,12 @@ import { FcmService } from 'libs/fcm';
 import { PushNotificationTokenDataModule } from '@app/data-access/push-notification-token/push-notification-token.module';
 import { AgoraHelperService } from '@app/common/services/voip/agora/agora.helper';
 import { VoipHelperService } from '@app/common/services/voip/agora/agora';
+import { MongooseModule } from '@nestjs/mongoose';
+import {
+  ConversationIndex,
+  ConversationIndexSchema,
+} from '@app/data-access/conversation-index/iconversation.schema';
+import { IConversationRepository } from '@app/data-access/conversation-index/iconversation.repository';
 
 /**
  * ${1:Description placeholder}
@@ -17,7 +23,17 @@ import { VoipHelperService } from '@app/common/services/voip/agora/agora';
  * @typedef {AgoraModule}
  */
 @Module({
-  imports: [HttpModule, UsersModule, PushNotificationTokenDataModule],
+  imports: [
+    HttpModule,
+    UsersModule,
+    PushNotificationTokenDataModule,
+    MongooseModule.forFeature([
+      {
+        name: ConversationIndex.name,
+        schema: ConversationIndexSchema,
+      },
+    ]),
+  ],
   providers: [
     AgoraResolver,
     AgoraService,
@@ -25,7 +41,8 @@ import { VoipHelperService } from '@app/common/services/voip/agora/agora';
     FcmService,
     ConfigService,
     VoipHelperService,
+    IConversationRepository,
   ],
-  exports: [AgoraService],
+  exports: [AgoraService, IConversationRepository],
 })
 export class AgoraModule {}

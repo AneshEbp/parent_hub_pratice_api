@@ -84,6 +84,17 @@ input ChangePasswordInput {
   password: String!
 }
 
+type ChatFileItem {
+  date: String!
+  name: String!
+}
+
+type ChatFileMapResponse {
+  conversationId: String!
+  files: [ChatFileItem!]!
+  totalDaysActive: Int!
+}
+
 input ChatHistoryInput {
   date: String!
   targetUserId: String!
@@ -320,6 +331,7 @@ type Query {
   getChatHistoryByDate(input: ChatHistoryInput!): ChatHistoryResponse!
   getCloudFrontSignUrl(key: String!): String!
   getCloudFrontUrl(key: String!): String!
+  getConversationFiles(chat_type: String!, targetUser: String!): ChatFileMapResponse!
   getCsrfToken: String!
   getCustomThumbnail(input: ThumbnailInput!): PreSignedUrlResponse!
   getPreSignedUrl(input: PreSignedUrlInput!): PreSignedUrlResponse!
