@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { AgoraService } from './agora.service';
 import {
   AgoraCallTokenResponse,
@@ -12,6 +12,8 @@ import { LoginDetailType } from '../auth/types/login-detail.type';
 import { InitiateAgoraCallInput } from './dto/input/agora-call.input';
 import { TermsGuard } from '@api/guards/terms.guard';
 import { I18n, I18nContext } from 'nestjs-i18n';
+import { ChatHistoryInput } from './dto/input/chatHistory.input';
+import { ChatHistoryResponse } from './dto/response/chatHistory.response';
 
 /**
  * ${1:Description placeholder}
@@ -21,7 +23,6 @@ import { I18n, I18nContext } from 'nestjs-i18n';
  * @typedef {AgoraResolver}
  */
 @Resolver(() => AgoraTokenResponse)
-@UseGuards(AuthUserGuard)
 export class AgoraResolver {
   /**
    * Creates an instance of AgoraResolver.
@@ -36,6 +37,7 @@ export class AgoraResolver {
    *
    * @returns {Promise<AgoraTokenResponse>} - A promise that resolves to an AgoraTokenResponse object containing the generated token, channel name, and uid.
    */
+  @UseGuards(AuthUserGuard)
   @Mutation(() => AgoraTokenResponse)
   async getAgoraToken(
     @LoginDetail() { userId }: LoginDetailType,
@@ -56,6 +58,7 @@ export class AgoraResolver {
    *
    * @returns {Promise<AgoraCallTokenResponse>} - A promise that resolves to an AgoraCallTokenResponse object containing the generated token, channel name, and uid.
    */
+  @UseGuards(AuthUserGuard)
   @Mutation(() => AgoraCallTokenResponse)
   async initiateAgoraCall(
     @Args('body') body: InitiateAgoraCallInput,
@@ -85,6 +88,7 @@ export class AgoraResolver {
    * @param {string} param0.userId
    * @returns {Promise<AgoraChatUserTokenResponse>}
    */
+  @UseGuards(AuthUserGuard)
   @Mutation(() => AgoraChatUserTokenResponse, { nullable: true })
   async createAgoraChatUserToken(
     @LoginDetail() { userId }: LoginDetailType,
@@ -97,9 +101,18 @@ export class AgoraResolver {
   }
 
   @Mutation(() => String)
-  async getRestToken() {
-    console.log("i m here")
-    const result = await this.agoraService.getChatHistory();
+  async archiveChatHistory() {
+    const result = await this.agoraService.archiveChatHistory();
     return result;
+  }
+
+  @UseGuards(AuthUserGuard)
+  @Query(() => ChatHistoryResponse)
+  async getChatHistoryByDate(
+    @Args('input', { type: () => ChatHistoryInput }) input: ChatHistoryInput,
+    @LoginDetail() {userId}: LoginDetailType,
+  ) {
+    const messages = await this.agoraService.getChatHistoryByDate(userId, input);
+    return { messages };
   }
 }

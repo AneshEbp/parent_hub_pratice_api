@@ -26,5 +26,6 @@ import { VoipHelperService } from '@app/common/services/voip/agora/agora';
     ConfigService,
     VoipHelperService,
   ],
+  exports: [AgoraService],
 })
-export class AgoraModule { }
+export class AgoraModule {}

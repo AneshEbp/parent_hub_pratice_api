@@ -253,28 +253,56 @@ export class AgoraHelperService {
   //   }
   // }
 
-  async getGroupList() {
-    const appToken = await this.createAgoraChatAppToken();
-    console.log(appToken);
+  // 🔹 2️⃣ Get Download URL for Hour
+   async getDownloadUrl(
+    hour: string,
+    token: string,
+  ): Promise<string | null> {
     try {
-      // const response = await axios.get(`${this.baseURLChat}/chatgroups`, {
-      //   headers: {
-      //     Authorization: `Bearer ${appToken}`,
-      //     'Content-Type': 'application/json',
-      //   },
-      // });
-      // const groupList = response.data;
-      // console.log(groupList);
+      const response = await axios.get(
+        `${this.baseURLChat}/chatmessages/${hour}`,
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
 
-      this.fetchGroupHistoryRange();
-    } catch (err) {
-      console.log(err);
+      return response.data.data[0]?.url || null;
+    } catch (error) {
+      if (error.response?.status === 404) {
+        console.log(`No messages in hour ${hour}`);
+        return null;
+      }
+      throw error;
     }
   }
+
   async fetchGroupHistoryRange() {
     // 1. Generate the hourly strings for the range
     // Yesterday 10 AM (2026021210) to Today 10 AM (2026021310)
-    const hours = this.generateHourRange();
+    // const hours = this.generateHourRange();
+    const hours = [
+      '2026021201',
+      '2026021202',
+      '2026021203',
+      '2026021204',
+      '2026021205',
+      '2026021206',
+      '2026021207',
+      '2026021208',
+      '2026021209',
+      '2026021210',
+      '2026021211',
+      '2026021212',
+      '2026021213',
+      '2026021214',
+      '2026021215',
+      '2026021216',
+      '2026021217',
+      '2026021218',
+      '2026021219',
+      '2026021220',
+      '2026021221',
+      '2026021222',
+      '2026021223',
+    ];
     const sleep = (ms: number) =>
       new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -285,7 +313,7 @@ export class AgoraHelperService {
 
     for (const hour of hours) {
       await sleep(10000);
-      console.log(`Processing hour: ${hour}...`)
+      console.log(`Processing hour: ${hour}...`);
       try {
         // 2. Get the download URL from Agora
         const response = await axios.get(
@@ -330,33 +358,5 @@ export class AgoraHelperService {
     return allGroupMessages;
   }
 
-  private generateHourRange(): string[] {
-    const hours: string[] = [];
 
-    // 1. Set the Start Time: Yesterday at 10:00 AM (Local Time)
-    const start = new Date();
-    start.setDate(start.getDate() - 1);
-    start.setHours(10, 0, 0, 0);
-
-    // 2. Set the End Time: Today at 10:00 AM (Local Time)
-    const end = new Date();
-    end.setHours(10, 0, 0, 0);
-
-    // 3. Loop hour by hour
-    let current = new Date(start);
-    while (current <= end) {
-      // Agora requires UTC time strings
-      const utcYear = current.getUTCFullYear();
-      const utcMonth = String(current.getUTCMonth() + 1).padStart(2, '0');
-      const utcDay = String(current.getUTCDate()).padStart(2, '0');
-      const utcHour = String(current.getUTCHours()).padStart(2, '0');
-
-      hours.push(`${utcYear}${utcMonth}${utcDay}${utcHour}`);
-
-      // Move to the next hour
-      current.setHours(current.getHours() + 1);
-    }
-
-    return hours;
-  }
 }

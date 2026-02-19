@@ -84,6 +84,24 @@ input ChangePasswordInput {
   password: String!
 }
 
+input ChatHistoryInput {
+  date: String!
+  targetUserId: String!
+}
+
+type ChatHistoryResponse {
+  messages: [ChatMessage!]!
+}
+
+type ChatMessage {
+  body: String!
+  from: String!
+  id: String!
+  time: Float!
+  to: String!
+  type: String!
+}
+
 input CoordinatesInput {
   lat: Float!
   long: Float!
@@ -239,6 +257,7 @@ type MessageResult {
 type Mutation {
   LoginWithTiktok(code: String!, deviceId: String!): SocialLoginResponse!
   acceptTermsAndConditions: MessageResponse!
+  archiveChatHistory: String!
   changePassword(body: ChangePasswordInput!): MessageResponse!
   createAgoraChatUserToken: AgoraChatUserTokenResponse
   deleteAccount: MessageResponse!
@@ -246,7 +265,6 @@ type Mutation {
   forgotPassword(body: ForgotPasswordInput!): ForgotPasswordResponse!
   getAgoraToken: AgoraTokenResponse!
   getPublicUploadUrl(input: GetUploadUrlDTO!): GetUploadUrlFromKeyResponse!
-  getRestToken: String!
   initiateAgoraCall(body: InitiateAgoraCallInput!): AgoraCallTokenResponse!
   invalidateCloudFrontCache(keys: [String!]!): MessageResponse!
   loginWithApple(deviceId: String!, idToken: String!): LoginWithAppleResponse!
@@ -299,6 +317,7 @@ type ProfileUpdateResponse {
 type Query {
   getAllThumbnail(input: AllThumbnailInput!): PreSignedUrlResponse!
   getAppUserProfile(userId: String!): UserProfileResponse!
+  getChatHistoryByDate(input: ChatHistoryInput!): ChatHistoryResponse!
   getCloudFrontSignUrl(key: String!): String!
   getCloudFrontUrl(key: String!): String!
   getCsrfToken: String!

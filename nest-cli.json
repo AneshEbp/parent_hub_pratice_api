@@ -7,7 +7,8 @@
     "tsConfigPath": "apps/api/tsconfig.app.json",
     "assets": [
       {
-        "include": "apps/api/src/i18n/**/*",
+        "include": "i18n/**/*",
+        "watchAssets": true,
         "outDir": "dist/apps/api/i18n"
       }
     ]

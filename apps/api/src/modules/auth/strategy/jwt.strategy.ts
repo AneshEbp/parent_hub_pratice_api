@@ -3,7 +3,12 @@ import { PassportStrategy } from '@nestjs/passport';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User, UserDocument, UserTokenMeta, UserTokenMetaDocument } from '@app/data-access';
+import {
+  User,
+  UserDocument,
+  UserTokenMeta,
+  UserTokenMetaDocument,
+} from '@app/data-access';
 import { I18nService } from 'nestjs-i18n';
 import { toMongoId } from '@app/common/helpers/mongo-helper';
 
@@ -73,7 +78,10 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     ]);
 
     if (!loginMeta && !loginMetaGoogle) {
-      throw new HttpException(this.i18nService.t('auth.unauthorized'), HttpStatus.UNAUTHORIZED);
+      throw new HttpException(
+        this.i18nService.t('auth.unauthorized'),
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     const user = await this.userModel

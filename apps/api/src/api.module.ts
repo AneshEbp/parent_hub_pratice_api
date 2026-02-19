@@ -10,6 +10,8 @@ import { EmailModule } from '@app/email/email.module';
 import { UsersModule } from './modules/users/users.module';
 import { AgoraModule } from './modules/agora/agora.module';
 import { ProcessorModule } from './modules/processor/processor.module';
+import { ChatArchiveModule } from './cron/chat-archive/chat-archive.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -20,7 +22,9 @@ import { ProcessorModule } from './modules/processor/processor.module';
     EmailModule.forRoot(),
     UsersModule,
     AgoraModule,
-    ProcessorModule
+    ProcessorModule,
+    ScheduleModule.forRoot(),
+    ChatArchiveModule
   ],
   controllers: [ApiController],
   providers: [ApiService, ApiResolver],

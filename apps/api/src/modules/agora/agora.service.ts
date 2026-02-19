@@ -9,6 +9,14 @@ import { CHANNEL_NAME, CHAT_TYPE, DEVICE_TYPE } from './constants';
 import { I18nService } from 'nestjs-i18n';
 import { VoipHelperService } from '@app/common/services/voip/agora/agora';
 import { AgoraHelperService } from '@app/common/services/voip/agora/agora.helper';
+import {
+  prepareArchive,
+  streamAndAppend,
+} from '@app/common/helpers/file.helper';
+import { ChatHistoryInput } from './dto/input/chatHistory.input';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as readline from 'readline';
 
 /**
  * ${1:Description placeholder}
@@ -35,6 +43,9 @@ export class AgoraService {
     private readonly pushNotificationTokenRepo: PushNotificationTokenRepository,
     private readonly i18nService: I18nService,
   ) {}
+
+  private archiveDir = path.join(process.cwd(), 'archive');
+
   /**
    * @description Create an Agora Token for audio/video call
    * @param userId user id
@@ -214,9 +225,141 @@ export class AgoraService {
     }
   }
 
-  async getChatHistory() {
-    console.log("i m here")
-    const getRestToken = await this.agoraHelperService.getGroupList();
-    return "getRestToken";
+  // 🔹 Generate past 24 hours in Singapore time (UTC+8)
+  private generatePast24HourRange(): string[] {
+    const hours: string[] = [];
+
+    // Current time in Singapore
+    const sgtNow = new Date().toLocaleString('en-US', {
+      timeZone: 'Asia/Singapore',
+    });
+    const sgtDate = new Date(sgtNow);
+
+    // Round to start of current hour
+    sgtDate.setMinutes(0, 0, 0);
+
+    // Loop past 24 hours
+    for (let i = 23; i >= 0; i--) {
+      const hourDate = new Date(sgtDate.getTime() - i * 60 * 60 * 1000);
+
+      const year = hourDate.getFullYear();
+      const month = String(hourDate.getMonth() + 1).padStart(2, '0');
+      const day = String(hourDate.getDate()).padStart(2, '0');
+      const hour = String(hourDate.getHours()).padStart(2, '0');
+
+      hours.push(`${year}${month}${day}${hour}`);
+    }
+
+    return hours;
+  }
+
+  async archiveChatHistory() {
+    try {
+      // const hours = [
+      //   '2026021205',
+      //   '2026021206',
+      //   '2026021207',
+      //   '2026021208',
+      //   '2026021209',
+      //   '2026021210',
+      //   '2026021211',
+      //   '2026021212',
+      //   '2026021213',
+      //   '2026021214',
+      //   '2026021215',
+      //   '2026021216',
+      //   '2026021217',
+      // ];
+      const hours = this.generatePast24HourRange();
+      await this.archiveDailyChat(hours);
+      return 'History archived succesffuly';
+    } catch (err) {
+      return `error while saving chathistory: ${err.message}`;
+    }
+  }
+
+  // 🔹 Utility Sleep
+  private sleep(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  // 🔹 Save chat history
+  public async archiveDailyChat(hours: string[]): Promise<void> {
+    const appToken = await this.agoraHelperService.createAgoraChatAppToken();
+    const { writeStream, filePath } = prepareArchive();
+
+    try {
+      for (const hour of hours) {
+        console.log(`Processing hour: ${hour}`);
+        await this.sleep(10000);
+
+        try {
+          const downloadUrl = await this.agoraHelperService.getDownloadUrl(
+            hour,
+            appToken,
+          );
+
+          if (!downloadUrl) continue;
+
+          await streamAndAppend(downloadUrl, writeStream);
+
+          console.log(`✅ Appended hour ${hour}`);
+        } catch (error) {
+          console.error(`Error processing hour ${hour}:`, error.message);
+        }
+      }
+    } finally {
+      writeStream.end();
+      console.log(`🎉 Archive completed: ${filePath}`);
+    }
+  }
+
+  async getChatHistoryByDate(userId: string, body: ChatHistoryInput) {
+    const { date, targetUserId } = body;
+    userId = userId.toString();
+
+    console.log(userId, body);
+    // File format: 2026-02-18.ndjson
+    const filePath = path.join(this.archiveDir, `${date}.ndjson`);
+
+    if (!fs.existsSync(filePath)) {
+      console.log("i m here")
+      return [] ;
+    }
+
+    const messages: any[] = [];
+
+    // Stream file line-by-line (efficient for large files)
+    const fileStream = fs.createReadStream(filePath);
+    const rl = readline.createInterface({
+      input: fileStream,
+      crlfDelay: Infinity,
+    });
+
+    for await (const line of rl) {
+      if (!line.trim()) continue;
+
+      const chat = JSON.parse(line);
+
+      // Match conversation both directions
+      const isConversation =
+        (chat.from === userId && chat.to === targetUserId) ||
+        (chat.from === targetUserId && chat.to === userId);
+
+      if (isConversation) {
+        messages.push({
+          id: chat.id,
+          from: chat.from,
+          to: chat.to,
+          body: chat.msg,
+          type: chat.type,
+          time: chat.ts,
+        });
+      }
+    }
+
+    // Sort chronologically
+    messages.sort((a, b) => a.time - b.time);
+    return messages;
   }
 }
